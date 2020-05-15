@@ -1,7 +1,5 @@
 use actix::Addr;
 use actix_web::{HttpResponse, Responder, web};
-use actix_web::body::Body;
-use actix_web::http::StatusCode;
 use serde::{Deserialize, Serialize};
 
 use crate::db::{LoginRequest, PgConnection, UserRoleRequest};
