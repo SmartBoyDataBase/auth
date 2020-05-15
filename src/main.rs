@@ -25,7 +25,7 @@ async fn main() -> std::io::Result<()> {
             .data_factory(|| PgConnection::connect(&DB_URL))
             .route("/ping", web::get().to(ping))
             .route("/login", web::post().to(login))
-    }).bind("127.0.0.1:8000")?
+    }).bind("0.0.0.0:8000")?
         .run()
         .await
 }
