@@ -22,6 +22,7 @@ impl Handler<LoginRequest> for PgConnection {
         let query_future = self.client
             .query_one(&self.login, &[&msg.username, &msg.password]);
         Box::pin(async move {
+            info!("User {:?} logined", msg.username);
             let row = query_future.await
                 .map_err(|e| io::Error::new(io::ErrorKind::Other, format!("{:?}", e)))?;
             Ok(row.get(0))

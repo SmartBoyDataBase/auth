@@ -2,9 +2,9 @@ use actix::Addr;
 use actix_web::{HttpResponse, Responder, web};
 use serde::{Deserialize, Serialize};
 
-use crate::db::create::SignInRequest;
 use crate::db::login::LoginRequest;
 use crate::db::PgConnection;
+use crate::db::sign_in::SignInRequest;
 use crate::db::user_role::UserRoleRequest;
 use crate::service::generate_token;
 
