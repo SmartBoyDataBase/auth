@@ -27,6 +27,7 @@ pub async fn sign_in(db: web::Data<Addr<PgConnection>>, request: web::Json<SignI
             .content_type("application/json")
             .body(body)
     } else {
+        info!("Failed to sign in with error {:?}", response);
         HttpResponse::InternalServerError().finish()
     }
 }
@@ -44,6 +45,7 @@ pub async fn login(db: web::Data<Addr<PgConnection>>, request: web::Json<LoginRe
     let user_id = response.unwrap();
     let role = db.send(UserRoleRequest::new(user_id)).await.unwrap();
     if role.is_err() {
+        info!("Failed to login with error {:?}", role);
         return HttpResponse::InternalServerError().finish();
     }
     let role = role.unwrap();

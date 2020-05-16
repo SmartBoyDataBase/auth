@@ -22,9 +22,9 @@ impl Handler<SignInRequest> for PgConnection {
         let query_future = self.client
             .query_one(&self.create, &[&msg.username, &msg.password]);
         Box::pin(async move {
-            info!("User {:?} created", msg.username);
             let row = query_future.await
                 .map_err(|e| io::Error::new(io::ErrorKind::Other, format!("{:?}", e)))?;
+            info!("User {:?} created", msg.username);
             Ok(row.get(0))
         })
     }
