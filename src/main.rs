@@ -8,7 +8,7 @@ use std::env;
 use actix_web::{App, HttpServer, web};
 
 use crate::db::PgConnection;
-use crate::handler::{login, ping};
+use crate::handler::{login, ping, sign_in};
 
 mod db;
 mod service;
@@ -25,6 +25,7 @@ async fn main() -> std::io::Result<()> {
             .data_factory(|| PgConnection::connect(&DB_URL))
             .route("/ping", web::get().to(ping))
             .route("/login", web::post().to(login))
+            .route("/sign-in", web::post().to(sign_in))
     }).bind("0.0.0.0:8000")?
         .run()
         .await
