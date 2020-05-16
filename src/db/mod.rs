@@ -32,7 +32,7 @@ impl PgConnection {
                 WHERE user_id=$1;").await.unwrap();
         let create = client.prepare("\
         INSERT INTO \"User\"(username, password)\
-        VALUES ($1, crypt($2, \"bf\"))\
+        VALUES ($1, crypt($2, gen_salt('bf')))\
         RETURNING id;\
         ").await.unwrap();
         Ok(PgConnection::create(move |_| PgConnection {
