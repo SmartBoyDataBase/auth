@@ -34,7 +34,6 @@ pub async fn sign_in(db: web::Data<Addr<PgConnection>>, request: web::Json<SignI
 #[derive(Deserialize, Serialize)]
 pub struct LoginResponse {
     token: String,
-    role: i64,
 }
 
 pub async fn login(db: web::Data<Addr<PgConnection>>, request: web::Json<LoginRequest>) -> HttpResponse {
@@ -51,7 +50,6 @@ pub async fn login(db: web::Data<Addr<PgConnection>>, request: web::Json<LoginRe
     let token = generate_token(user_id, role);
     let body = serde_json::to_string(&LoginResponse {
         token,
-        role,
     }).unwrap();
     HttpResponse::Ok()
         .content_type("application/json")
