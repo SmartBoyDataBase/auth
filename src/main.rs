@@ -20,6 +20,7 @@ lazy_static! {
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
+    env_logger::init();
     HttpServer::new(|| {
         App::new()
             .data_factory(|| PgConnection::connect(&DB_URL))
